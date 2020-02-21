@@ -2,25 +2,28 @@ import Position from "../position/Position";
 import CharacterState from "./CharacterState";
 import {instance, mock, resetCalls, when} from "ts-mockito";
 import {Orientation} from "../orientation/Orientation";
+import Compass from "../orientation/Compass";
 
 describe("Character", () => {
+    const positionMock = mock<Position>();
+    const compassMock = mock<Compass>();
 
-    describe("Character move", () => {
-        const positionMock = mock<Position>();
+    beforeEach(() => {
+        resetCalls(positionMock);
+    });
+
+
+    describe("when moving", () => {
+
         const nextPosition: Position = Position.of(0, 0); // could be any
-
-        beforeEach(() => {
-            resetCalls(positionMock);
-        });
-
         it("should move up when facing North", () => {
-            const characterState = makeCharacterState(positionMock, "NORTH");
+            const characterState = makeCharacterStateWithOrientation("NORTH");
             when(positionMock.transY(1))
                 .thenReturn(nextPosition);
             moveAndExpectPositionToBeUpdated(characterState);
         });
 
-        function makeCharacterState(positionMock: Position, initOrientation: Orientation) {
+        function makeCharacterStateWithOrientation(initOrientation: Orientation) {
             return CharacterState.with(instance(positionMock), initOrientation);
         }
 
@@ -30,24 +33,32 @@ describe("Character", () => {
         }
 
         it("should move left when facing West", () => {
-            const characterState = makeCharacterState(positionMock, "WEST");
+            const characterState = makeCharacterStateWithOrientation("WEST");
             when(positionMock.transX(-1))
                 .thenReturn(nextPosition);
             moveAndExpectPositionToBeUpdated(characterState);
         });
 
         it("should move right when facing East", () => {
-            const characterState = makeCharacterState(positionMock, "EAST");
+            const characterState = makeCharacterStateWithOrientation("EAST");
             when(positionMock.transX(1))
                 .thenReturn(nextPosition);
             moveAndExpectPositionToBeUpdated(characterState);
         });
 
         it("should move down when facing South", () => {
-            const characterState = makeCharacterState(positionMock, "SOUTH");
+            const characterState = makeCharacterStateWithOrientation("SOUTH");
             when(positionMock.transY(-1))
                 .thenReturn(nextPosition);
             moveAndExpectPositionToBeUpdated(characterState);
+        });
+    });
+
+    describe("when turning", () => {
+        describe("left", () => {
+            it("should update the orientation", () => {
+
+            });
         });
     });
 });
