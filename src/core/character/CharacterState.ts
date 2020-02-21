@@ -1,37 +1,35 @@
 import {Orientation} from "../orientation/Orientation";
 import Position from "../position/Position";
 import Compass from "../orientation/Compass";
+import WorldMap from "../position/WorldMap";
 
 export default class CharacterState {
     readonly position: Position;
     readonly orientation: Orientation;
     private readonly compass: Compass;
+    private readonly worldMap: WorldMap;
 
-    constructor(position: Position, orientation: Orientation, compass: Compass) {
+    private constructor(position: Position, orientation: Orientation, compass: Compass, worldMap: WorldMap) {
         this.position = position;
         this.orientation = orientation;
         this.compass = compass;
+        this.worldMap = worldMap;
     }
 
-    static with(position: Position, orientation: Orientation, compass: Compass) {
-        return new CharacterState(position, orientation, compass);
+    static with(position: Position, orientation: Orientation, compass: Compass, worldMap: WorldMap) {
+        return new CharacterState(position, orientation, compass, worldMap);
     }
 
     private at(position: Position): CharacterState {
-        return CharacterState.with(position, this.orientation, this.compass);
+        return CharacterState.with(position, this.orientation, this.compass, this.worldMap);
     }
 
     private facedTo(orientation: Orientation): CharacterState {
-        return CharacterState.with(this.position, orientation, this.compass);
+        return CharacterState.with(this.position, orientation, this.compass, this.worldMap);
     }
 
     move(): CharacterState {
-        switch (this.orientation) {
-            case "WEST": return this.at(this.position.transX(-1));
-            case "EAST": return this.at(this.position.transX(1));
-            case "SOUTH": return this.at(this.position.transY(-1));
-            case "NORTH": return this.at(this.position.transY(1));
-        }
+        return this.at(this.worldMap.move(this.position, this.orientation));
     }
 
     left(): CharacterState {

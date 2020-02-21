@@ -6,14 +6,16 @@ import {instance, mock, resetCalls, when} from "ts-mockito";
 import GameView from "./game/GameView";
 import Position from "../core/position/Position";
 import Compass from "../core/orientation/Compass";
+import WorldMap from "../core/position/WorldMap";
 
 describe("App", () => {
     const positionDummy = instance(mock<Position>());
     const compassDummy = instance(mock<Compass>());
+    const worldMapDummy = instance(mock<WorldMap>());
     const orientationDummy = "NORTH";
 
     const characterStateMock = mock<CharacterState>();
-    const nextCharacterState = CharacterState.with(positionDummy, orientationDummy, compassDummy);
+    const nextCharacterState = CharacterState.with(positionDummy, orientationDummy, compassDummy, worldMapDummy);
 
     beforeEach(() => {
         resetCalls(characterStateMock);
@@ -64,6 +66,8 @@ describe("App", () => {
 
             const app = mount<App>(<App characterState={instance(characterStateMock)} />);
             const rightButton = app.find('[data-testid="right-button"]');
+
+            console.log(app.debug());
 
             rightButton.simulate('click');
 

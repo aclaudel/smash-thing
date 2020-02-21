@@ -5,11 +5,13 @@ import * as serviceWorker from './serviceWorker';
 import CharacterState from "./core/character/CharacterState";
 import Position from "./core/position/Position";
 import Compass from "./core/orientation/Compass";
+import WorldMap from "./core/position/WorldMap";
 
 const initCharacterState = CharacterState.with(
     Position.of(0, 0),
     "NORTH",
-    new Compass()
+    new Compass(),
+    new WorldMap()
 );
 
 ReactDOM.render(<App characterState={initCharacterState} />, document.getElementById('root'));
