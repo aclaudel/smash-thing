@@ -11,16 +11,24 @@ type AppState = {
 }
 
 export default class App extends React.Component<AppProps, AppState> {
-
     constructor(props: AppProps) {
         super(props);
         this.state = {
             characterState: props.characterState
         }
     }
-
     move() {
         const nextCharacterState = this.state.characterState.move();
+        this.setState({characterState: nextCharacterState});
+    }
+
+    left() {
+        const nextCharacterState = this.state.characterState.left();
+        this.setState({characterState: nextCharacterState});
+    }
+
+    right() {
+        const nextCharacterState = this.state.characterState.right();
         this.setState({characterState: nextCharacterState});
     }
 
