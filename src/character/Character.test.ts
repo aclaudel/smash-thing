@@ -1,6 +1,7 @@
 import Position from "../position/Position";
 import CharacterState from "./CharacterState";
 import {instance, mock, resetCalls, verify, when} from "ts-mockito";
+import {Orientation} from "../orientation/Orientation";
 
 describe("Character move", () => {
     const positionMock = mock<Position>();
@@ -12,7 +13,7 @@ describe("Character move", () => {
 
     describe("when facing North", () => {
         const initOrientation = "NORTH";
-        const characterState = CharacterState.at(instance(positionMock), initOrientation);
+        const characterState = makeCharacterState(positionMock, initOrientation);
 
         when(positionMock.transY(1))
             .thenReturn(nextPosition);
@@ -26,7 +27,7 @@ describe("Character move", () => {
 
     describe("when facing West", () => {
         const initOrientation = "WEST";
-        const characterState = CharacterState.at(instance(positionMock), initOrientation);
+        const characterState = makeCharacterState(positionMock, initOrientation);
 
         when(positionMock.transX(-1))
             .thenReturn(nextPosition);
@@ -38,3 +39,7 @@ describe("Character move", () => {
         });
     });
 });
+
+function makeCharacterState(positionMock: Position, initOrientation: Orientation) {
+    return CharacterState.at(instance(positionMock), initOrientation);
+}
