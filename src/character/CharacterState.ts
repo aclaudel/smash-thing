@@ -37,4 +37,8 @@ export default class CharacterState {
     left(): CharacterState {
         return this.facedTo(this.compass.left(this.orientation));
     }
+
+    right(): CharacterState {
+        return this.facedTo(this.compass.right(this.orientation));
+    }
 }

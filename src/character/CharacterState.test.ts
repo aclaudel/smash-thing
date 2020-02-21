@@ -65,5 +65,12 @@ describe("Character", () => {
             const nextCharacterState = characterState.left();
             expect(nextCharacterState.orientation).toBe(nextOrientation);
         });
+
+        it("should update the orientation when turning right", () => {
+            when(compassMock.right(orientation))
+                .thenReturn(nextOrientation);
+            const nextCharacterState = characterState.right();
+            expect(nextCharacterState.orientation).toBe(nextOrientation);
+        });
     });
 });
