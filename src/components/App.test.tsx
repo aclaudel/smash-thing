@@ -4,9 +4,9 @@ import App from "./App";
 import CharacterState from "../core/character/CharacterState";
 import {instance, mock, resetCalls, when} from "ts-mockito";
 import GameView from "./game/GameView";
-import Position from "../core/position/Position";
+import Position from "../core/map/Position";
 import Compass from "../core/orientation/Compass";
-import WorldMap from "../core/position/WorldMap";
+import WorldMap from "../core/map/WorldMap";
 
 describe("App", () => {
     const positionDummy = instance(mock<Position>());

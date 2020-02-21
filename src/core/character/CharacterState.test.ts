@@ -1,8 +1,8 @@
-import Position from "../position/Position";
+import Position from "../map/Position";
 import CharacterState from "./CharacterState";
 import {instance, mock, resetCalls, when} from "ts-mockito";
 import Compass from "../orientation/Compass";
-import WorldMap from "../position/WorldMap";
+import WorldMap from "../map/WorldMap";
 
 describe("Character", () => {
     const positionMock = mock<Position>();

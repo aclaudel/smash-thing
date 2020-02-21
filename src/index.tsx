@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import CharacterState from "./core/character/CharacterState";
-import Position from "./core/position/Position";
+import Position from "./core/map/Position";
 import Compass from "./core/orientation/Compass";
-import WorldMap from "./core/position/WorldMap";
+import WorldMap from "./core/map/WorldMap";
 
 const initCharacterState = CharacterState.with(
     Position.of(0, 0),

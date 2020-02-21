@@ -1,7 +1,7 @@
 import {Orientation} from "../orientation/Orientation";
-import Position from "../position/Position";
+import Position from "../map/Position";
 import Compass from "../orientation/Compass";
-import WorldMap from "../position/WorldMap";
+import WorldMap from "../map/WorldMap";
 
 export default class CharacterState {
     readonly position: Position;
