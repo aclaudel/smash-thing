@@ -1,17 +1,22 @@
 import Position from "../position/Position";
 import CharacterState from "./CharacterState";
+import {instance, mock, resetCalls, verify} from "ts-mockito";
 
 describe("Character", () => {
-    const initPosition = Position.of(1,1);
+    const positionMock = mock<Position>();
+
+    beforeEach(() => {
+        resetCalls(positionMock);
+    });
 
     describe("when facing North", () => {
         const initOrientation = "NORTH";
-        const characterState = CharacterState.at(initPosition, initOrientation);
-        const nextCharacterState = characterState.move();
+        const characterState = CharacterState.at(instance(positionMock), initOrientation);
+
 
         it("should move up", () => {
-            expect(nextCharacterState.position.y).toBe(initPosition.y +1);
+            characterState.move();
+            verify(positionMock.transY(1)).called();
         });
-
     });
 });
