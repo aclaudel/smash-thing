@@ -24,7 +24,7 @@ describe("Character", () => {
         });
 
         function makeCharacterStateWithOrientation(initOrientation: Orientation) {
-            return CharacterState.with(instance(positionMock), initOrientation);
+            return CharacterState.with(instance(positionMock), initOrientation, instance(compassMock));
         }
 
         function moveAndExpectPositionToBeUpdated(characterState: CharacterState) {
@@ -55,10 +55,15 @@ describe("Character", () => {
     });
 
     describe("when turning", () => {
-        describe("left", () => {
-            it("should update the orientation", () => {
+        const orientation = "NORTH";
+        const nextOrientation = "SOUTH";
+        const characterState = CharacterState.with(instance(positionMock), orientation, instance(compassMock));
 
-            });
+        it("should update the orientation when turning left", () => {
+            when(compassMock.left(orientation))
+                .thenReturn(nextOrientation);
+            const nextCharacterState = characterState.left();
+            expect(nextCharacterState.orientation).toBe(nextOrientation);
         });
     });
 });
