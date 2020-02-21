@@ -10,16 +10,16 @@ export default class CharacterState {
         this.orientation = orientation;
     }
 
-    static at(position: Position, orientation: Orientation) {
+    static with(position: Position, orientation: Orientation) {
         return new CharacterState(position, orientation);
     }
 
     move(): CharacterState {
         switch (this.orientation) {
-            case "WEST": return CharacterState.at(this.position.transX(-1), this.orientation);
-            case "EAST": return CharacterState.at(this.position.transX(1), this.orientation);
-            case "SOUTH": return CharacterState.at(this.position.transY(-1), this.orientation);
-            case "NORTH": return CharacterState.at(this.position.transY(1), this.orientation);
+            case "WEST": return CharacterState.with(this.position.transX(-1), this.orientation);
+            case "EAST": return CharacterState.with(this.position.transX(1), this.orientation);
+            case "SOUTH": return CharacterState.with(this.position.transY(-1), this.orientation);
+            case "NORTH": return CharacterState.with(this.position.transY(1), this.orientation);
         }
     }
 }

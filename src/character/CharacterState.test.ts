@@ -21,7 +21,7 @@ describe("Character", () => {
         });
 
         function makeCharacterState(positionMock: Position, initOrientation: Orientation) {
-            return CharacterState.at(instance(positionMock), initOrientation);
+            return CharacterState.with(instance(positionMock), initOrientation);
         }
 
         function moveAndExpectPositionToBeUpdated(characterState: CharacterState) {
@@ -48,12 +48,6 @@ describe("Character", () => {
             when(positionMock.transY(-1))
                 .thenReturn(nextPosition);
             moveAndExpectPositionToBeUpdated(characterState);
-        });
-    });
-
-    describe("Character turn", () => {
-        it("should fail", () => {
-            fail();
         });
     });
 });
