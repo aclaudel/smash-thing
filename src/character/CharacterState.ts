@@ -19,7 +19,7 @@ export default class CharacterState {
             case "WEST": return CharacterState.at(this.position.transX(-1), this.orientation);
             case "EAST": return CharacterState.at(this.position.transX(1), this.orientation);
             case "SOUTH": return CharacterState.at(this.position.transY(-1), this.orientation);
+            case "NORTH": return CharacterState.at(this.position.transY(1), this.orientation);
         }
-        return CharacterState.at(this.position.transY(1), this.orientation);
     }
 }
