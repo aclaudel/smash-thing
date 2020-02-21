@@ -1,7 +1,7 @@
-import OrientationService from "./OrientationService";
+import Compass from "./Compass";
 
-describe("Orientation service", () => {
-    const service = new OrientationService();
+describe("Compass", () => {
+    const service = new Compass();
 
     it("should return the left orientation", () => {
         expect(service.left("NORTH")).toBe("WEST");

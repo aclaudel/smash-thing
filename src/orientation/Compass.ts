@@ -1,6 +1,6 @@
 import {Orientation} from "./Orientation";
 
-export default class OrientationService {
+export default class Compass {
 
     left(orientation: Orientation) {
         switch (orientation) {
