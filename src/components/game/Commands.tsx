@@ -1,4 +1,5 @@
 import React from "react";
+import {Button} from "react-bootstrap";
 
 export type Listener = () => void;
 
@@ -9,9 +10,9 @@ export type Listeners = {
 export default function Commands(props: {listeners: Listeners}) {
     return (
         <div data-testid="commands">
-            <div data-testid="left-button" onClick={props.listeners.left}/>
-            <div data-testid="move-button" onClick={props.listeners.move}/>
-            <div data-testid="right-button" onClick={props.listeners.right}/>
+            <Button data-testid="left-button" onClick={props.listeners.left}>LEFT</Button>
+            <Button data-testid="move-button" onClick={props.listeners.move}>MOVE</Button>
+            <Button data-testid="right-button" onClick={props.listeners.right}>RIGHT</Button>
         </div>
     );
 }

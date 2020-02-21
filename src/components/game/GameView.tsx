@@ -9,6 +9,7 @@ export default function GameView(props: {
     return (
         <div data-testid="game-view">
             <Commands listeners={props.listeners}/>
+            <h1>{props.characterState.orientation} - {props.characterState.position.x} {props.characterState.position.y}</h1>
         </div>
     );
 }
