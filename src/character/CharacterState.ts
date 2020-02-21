@@ -17,6 +17,8 @@ export default class CharacterState {
     move(): CharacterState {
         switch (this.orientation) {
             case "WEST": return CharacterState.at(this.position.transX(-1), this.orientation);
+            case "EAST": return CharacterState.at(this.position.transX(1), this.orientation);
+            case "SOUTH": return CharacterState.at(this.position.transY(-1), this.orientation);
         }
         return CharacterState.at(this.position.transY(1), this.orientation);
     }

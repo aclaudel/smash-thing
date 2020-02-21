@@ -14,13 +14,13 @@ describe("Character move", () => {
     describe("when facing North", () => {
         const initOrientation = "NORTH";
         const characterState = makeCharacterState(positionMock, initOrientation);
-
-        when(positionMock.transY(1))
+        const expectedYModifier = 1;
+        when(positionMock.transY(expectedYModifier))
             .thenReturn(nextPosition);
 
         it("should move up", () => {
             const nextCharacterState = characterState.move();
-            verify(positionMock.transY(1)).called();
+            verify(positionMock.transY(expectedYModifier)).called();
             expect(nextCharacterState.position).toBe(nextPosition);
         });
     });
@@ -28,13 +28,42 @@ describe("Character move", () => {
     describe("when facing West", () => {
         const initOrientation = "WEST";
         const characterState = makeCharacterState(positionMock, initOrientation);
-
-        when(positionMock.transX(-1))
+        const expectedXModifier = -1;
+        when(positionMock.transX(expectedXModifier))
             .thenReturn(nextPosition);
 
         it("should move left", () => {
             const nextCharacterState = characterState.move();
-            verify(positionMock.transX(-1)).called();
+            verify(positionMock.transX(expectedXModifier)).called();
+            expect(nextCharacterState.position).toBe(nextPosition);
+        });
+    });
+
+    describe("when facing East", () => {
+        const initOrientation = "EAST";
+        const characterState = makeCharacterState(positionMock, initOrientation);
+        const expectedXModifier = 1;
+        when(positionMock.transX(expectedXModifier))
+            .thenReturn(nextPosition);
+
+        it("should move right", () => {
+            const nextCharacterState = characterState.move();
+            verify(positionMock.transX(expectedXModifier)).called();
+            expect(nextCharacterState.position).toBe(nextPosition);
+        });
+    });
+
+    describe("when facing South", () => {
+        const initOrientation = "SOUTH";
+        const characterState = makeCharacterState(positionMock, initOrientation);
+        const expectedYModifier = -1;
+
+        when(positionMock.transY(expectedYModifier))
+            .thenReturn(nextPosition);
+
+        it("should move down", () => {
+            const nextCharacterState = characterState.move();
+            verify(positionMock.transY(expectedYModifier)).called();
             expect(nextCharacterState.position).toBe(nextPosition);
         });
     });
