@@ -1,6 +1,6 @@
 import Position from "../position/Position";
 import CharacterState from "./CharacterState";
-import {instance, mock, resetCalls, verify, when} from "ts-mockito";
+import {instance, mock, resetCalls, when} from "ts-mockito";
 import {Orientation} from "../orientation/Orientation";
 
 describe("Character move", () => {
@@ -11,64 +11,40 @@ describe("Character move", () => {
         resetCalls(positionMock);
     });
 
-    describe("when facing North", () => {
-        const initOrientation = "NORTH";
-        const characterState = makeCharacterState(positionMock, initOrientation);
-        const expectedYModifier = 1;
-        when(positionMock.transY(expectedYModifier))
+    it("should move up when facing North", () => {
+        const characterState = makeCharacterState(positionMock, "NORTH");
+        when(positionMock.transY(1))
             .thenReturn(nextPosition);
-
-        it("should move up", () => {
-            const nextCharacterState = characterState.move();
-            verify(positionMock.transY(expectedYModifier)).called();
-            expect(nextCharacterState.position).toBe(nextPosition);
-        });
+        moveAndExpectPositionToBeUpdated(characterState);
     });
 
-    describe("when facing West", () => {
-        const initOrientation = "WEST";
-        const characterState = makeCharacterState(positionMock, initOrientation);
-        const expectedXModifier = -1;
-        when(positionMock.transX(expectedXModifier))
-            .thenReturn(nextPosition);
+    function makeCharacterState(positionMock: Position, initOrientation: Orientation) {
+        return CharacterState.at(instance(positionMock), initOrientation);
+    }
 
-        it("should move left", () => {
-            const nextCharacterState = characterState.move();
-            verify(positionMock.transX(expectedXModifier)).called();
-            expect(nextCharacterState.position).toBe(nextPosition);
-        });
+    function moveAndExpectPositionToBeUpdated(characterState: CharacterState) {
+        const nextCharacterState = characterState.move();
+        expect(nextCharacterState.position).toBe(nextPosition);
+    }
+
+    it("should move left when facing West", () => {
+        const characterState = makeCharacterState(positionMock, "WEST");
+        when(positionMock.transX(-1))
+            .thenReturn(nextPosition);
+        moveAndExpectPositionToBeUpdated(characterState);
     });
 
-    describe("when facing East", () => {
-        const initOrientation = "EAST";
-        const characterState = makeCharacterState(positionMock, initOrientation);
-        const expectedXModifier = 1;
-        when(positionMock.transX(expectedXModifier))
+    it("should move right when facing East", () => {
+        const characterState = makeCharacterState(positionMock, "EAST");
+        when(positionMock.transX(1))
             .thenReturn(nextPosition);
-
-        it("should move right", () => {
-            const nextCharacterState = characterState.move();
-            verify(positionMock.transX(expectedXModifier)).called();
-            expect(nextCharacterState.position).toBe(nextPosition);
-        });
+        moveAndExpectPositionToBeUpdated(characterState);
     });
 
-    describe("when facing South", () => {
-        const initOrientation = "SOUTH";
-        const characterState = makeCharacterState(positionMock, initOrientation);
-        const expectedYModifier = -1;
-
-        when(positionMock.transY(expectedYModifier))
+    it("should move down when facing South", () => {
+        const characterState = makeCharacterState(positionMock, "SOUTH");
+        when(positionMock.transY(-1))
             .thenReturn(nextPosition);
-
-        it("should move down", () => {
-            const nextCharacterState = characterState.move();
-            verify(positionMock.transY(expectedYModifier)).called();
-            expect(nextCharacterState.position).toBe(nextPosition);
-        });
+        moveAndExpectPositionToBeUpdated(characterState);
     });
 });
-
-function makeCharacterState(positionMock: Position, initOrientation: Orientation) {
-    return CharacterState.at(instance(positionMock), initOrientation);
-}
