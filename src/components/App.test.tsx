@@ -1,5 +1,5 @@
 import React from "react";
-import {shallow} from "enzyme";
+import {mount, shallow} from "enzyme";
 import App from "./App";
 import CharacterState from "../core/character/CharacterState";
 import {instance, mock, resetCalls, when} from "ts-mockito";
@@ -19,39 +19,57 @@ describe("App", () => {
         resetCalls(characterStateMock);
     });
 
-    it("should update the character state on move", () => {
-        when(characterStateMock.move())
-            .thenReturn(nextCharacterState);
+    describe("unit state update", () => {
+        it("should update the character state on move", () => {
+            when(characterStateMock.move())
+                .thenReturn(nextCharacterState);
 
-        const app = shallow<App>(<App characterState={instance(characterStateMock)} />);
+            const app = shallow<App>(<App characterState={instance(characterStateMock)} />);
 
-        app.instance().move();
+            app.instance().move();
 
-        const gameView = app.find(GameView);
-        expect(gameView.props().characterState).toBe(nextCharacterState);
+            const gameView = app.find(GameView);
+            expect(gameView.props().characterState).toBe(nextCharacterState);
+        });
+
+        it("should update the character state on left", () => {
+            when(characterStateMock.left())
+                .thenReturn(nextCharacterState);
+
+            const app = shallow<App>(<App characterState={instance(characterStateMock)} />);
+
+            app.instance().left();
+
+            const gameView = app.find(GameView);
+            expect(gameView.props().characterState).toBe(nextCharacterState);
+        });
+
+        it("should update the character state on right", () => {
+            when(characterStateMock.right())
+                .thenReturn(nextCharacterState);
+
+            const app = shallow<App>(<App characterState={instance(characterStateMock)} />);
+
+            app.instance().right();
+
+            const gameView = app.find(GameView);
+            expect(gameView.props().characterState).toBe(nextCharacterState);
+        });
     });
 
-    it("should update the character state on left", () => {
-        when(characterStateMock.left())
-            .thenReturn(nextCharacterState);
+    describe("full state update", () => {
+        it("should update and display the new state", () => {
+            when(characterStateMock.right())
+                .thenReturn(nextCharacterState);
 
-        const app = shallow<App>(<App characterState={instance(characterStateMock)} />);
+            const app = mount<App>(<App characterState={instance(characterStateMock)} />);
+            const rightButton = app.find('[data-testid="right-button"]');
 
-        app.instance().left();
+            rightButton.simulate('click');
 
-        const gameView = app.find(GameView);
-        expect(gameView.props().characterState).toBe(nextCharacterState);
+            const gameView = app.find(GameView);
+            expect(gameView.props().characterState).toBe(nextCharacterState);
+        });
     });
 
-    it("should update the character state on right", () => {
-        when(characterStateMock.right())
-            .thenReturn(nextCharacterState);
-
-        const app = shallow<App>(<App characterState={instance(characterStateMock)} />);
-
-        app.instance().right();
-
-        const gameView = app.find(GameView);
-        expect(gameView.props().characterState).toBe(nextCharacterState);
-    });
 });

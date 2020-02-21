@@ -1,6 +1,7 @@
 import React from "react";
 import CharacterState from "../core/character/CharacterState";
 import GameView from "./game/GameView";
+import {Listeners} from "./game/Commands";
 
 type AppProps = {
     characterState: CharacterState
@@ -13,6 +14,9 @@ type AppState = {
 export default class App extends React.Component<AppProps, AppState> {
     constructor(props: AppProps) {
         super(props);
+        this.right = this.right.bind(this);
+        this.left = this.left.bind(this);
+        this.move = this.move.bind(this);
         this.state = {
             characterState: props.characterState
         }
@@ -33,10 +37,19 @@ export default class App extends React.Component<AppProps, AppState> {
     }
 
     render() {
+        const listeners: Listeners = {
+            left: this.left,
+            move: this.move,
+            right: this.right
+        };
+
         return (
             <div>
                 <h1>Smash things</h1>
-                <GameView characterState={this.state.characterState}/>
+                <GameView
+                    characterState={this.state.characterState}
+                    listeners={listeners}
+                />
             </div>
         );
     }
