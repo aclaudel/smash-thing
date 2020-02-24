@@ -8,7 +8,7 @@ import WorldMap from "./core/map/WorldMap";
 import Compass from "./core/orientation/Compass";
 
 const gameEngine = new GameEngine(new WorldMap(), new Compass());
-const defaultCharacter = new Character("id-1", gameEngine);
+const defaultCharacter = new Character("id-1");
 gameEngine.addCharacter(defaultCharacter);
 ReactDOM.render(<App
         gameEngine={gameEngine} />,

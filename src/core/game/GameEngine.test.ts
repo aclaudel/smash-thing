@@ -19,7 +19,7 @@ describe("Game engine", () => {
 
     beforeEach(() => {
         gameEngine = new GameEngine(instance(worldMapMock), instance(compassMock));
-        character = new Character("id-1", gameEngine);
+        character = new Character("id-1");
     });
 
     it("should register the character with a default state", () => {
@@ -75,8 +75,8 @@ describe("Game engine", () => {
                 .thenReturn(DUMMY_ORIENTATION);
 
 
-            const character1 = new Character("id-1", gameEngine);
-            const character2 = new Character("id-2", gameEngine);
+            const character1 = new Character("id-1");
+            const character2 = new Character("id-2");
 
             gameEngine.addCharacter(character1);
             gameEngine.addCharacter(character2);

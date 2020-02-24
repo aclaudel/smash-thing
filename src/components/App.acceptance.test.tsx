@@ -10,7 +10,7 @@ import Compass from "../core/orientation/Compass";
 describe("Acceptance test", () => {
     it("should update the character state when command buttons are clicked ", () => {
         const gameEngine = new GameEngine(new WorldMap(), new Compass());
-        const character = new Character("id-1", gameEngine);
+        const character = new Character("id-1");
         gameEngine.addCharacter(character);
 
         const app = render(<App gameEngine={gameEngine}/>);

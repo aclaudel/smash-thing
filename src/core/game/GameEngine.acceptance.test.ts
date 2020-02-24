@@ -9,7 +9,7 @@ describe("Game engine", () => {
     it("should register and update the character state", () => {
         const id = "id-1";
 
-        engine.addCharacter(new Character(id, engine));
+        engine.addCharacter(new Character(id));
         engine.moveCharacter(id);
         engine.right(id);
         engine.right(id);
