@@ -10,10 +10,10 @@ export type CharacterInfo = {
 };
 
 export default class GameEngine {
-    private readonly worldMap?: WorldMap;
-    private readonly compass?: Compass;
+    private readonly worldMap: WorldMap;
+    private readonly compass: Compass;
 
-    constructor(worldMap?: WorldMap, compass?: Compass) {
+    constructor(worldMap: WorldMap, compass: Compass) {
         this.worldMap = worldMap;
         this.compass = compass;
     }
@@ -23,15 +23,11 @@ export default class GameEngine {
 
     moveCharacter(id: string) {
         const characterInfo = this.getCharacterInfo(id);
-        if(!this.worldMap) {
-            characterInfo.state = characterInfo.state.move();
-        } else {
-            const nextPosition = this.worldMap.move(
-                characterInfo.state.position,
-                characterInfo.state.orientation
-            );
-            characterInfo.state = characterInfo.state.at(nextPosition);
-        }
+        const nextPosition = this.worldMap.move(
+            characterInfo.state.position,
+            characterInfo.state.orientation
+        );
+        characterInfo.state = characterInfo.state.at(nextPosition);
     }
 
     private getCharacterInfo(id: string) {
@@ -45,24 +41,14 @@ export default class GameEngine {
 
     left(id: string) {
         const characterInfo = this.getCharacterInfo(id);
-        if(!this.compass) {
-            characterInfo.state = characterInfo.state.left();
-        } else {
-            const nextOrientation = this.compass.left(characterInfo.state.orientation);
-            characterInfo.state = characterInfo.state.facedTo(nextOrientation);
-        }
+        const nextOrientation = this.compass.left(characterInfo.state.orientation);
+        characterInfo.state = characterInfo.state.facedTo(nextOrientation);
     }
 
     right(id: string) {
         const characterInfo = this.getCharacterInfo(id);
-
-        if(!this.compass) {
-            characterInfo.state = characterInfo.state.right();
-        } else {
-            const nextOrientation = this.compass.right(characterInfo.state.orientation);
-            characterInfo.state = characterInfo.state.facedTo(nextOrientation);
-        }
-
+        const nextOrientation = this.compass.right(characterInfo.state.orientation);
+        characterInfo.state = characterInfo.state.facedTo(nextOrientation);
     }
 
     addCharacter(character: Character) {
