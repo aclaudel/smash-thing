@@ -22,15 +22,17 @@ describe("Game engine", () => {
         character = new Character("id-1");
     });
 
-    it("should register the character with a default state", () => {
-        gameEngine.addCharacter(character);
+    describe("with an unregistered character", () => {
+        it("should register the character with a default state", () => {
+            gameEngine.addCharacter(character);
 
-        expect(gameEngine.getCharacters()).toHaveLength(1);
-        const characterInfo = gameEngine.getCharacters()[0];
-        expect(characterInfo.character).toBe(character);
-        expect(characterInfo.state.orientation).toBe(DEFAULT_ORIENTATION);
-        expect(characterInfo.state.position.x).toBe(DEFAULT_POSISTION_X);
-        expect(characterInfo.state.position.y).toBe(DEFAULT_POSISTION_Y);
+            expect(gameEngine.getCharacters()).toHaveLength(1);
+            const characterInfo = gameEngine.getCharacters()[0];
+            expect(characterInfo.character).toBe(character);
+            expect(characterInfo.state.orientation).toBe(DEFAULT_ORIENTATION);
+            expect(characterInfo.state.position.x).toBe(DEFAULT_POSISTION_X);
+            expect(characterInfo.state.position.y).toBe(DEFAULT_POSISTION_Y);
+        });
     });
 
     describe("with a registered character", () => {
@@ -69,7 +71,7 @@ describe("Game engine", () => {
         });
     });
 
-    describe("with two characters", () => {
+    describe("with two registered characters", () => {
         it("should update only the character with the given id", () => {
             when(compassMock.right(DEFAULT_ORIENTATION))
                 .thenReturn(DUMMY_ORIENTATION);
