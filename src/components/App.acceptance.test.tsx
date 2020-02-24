@@ -4,10 +4,12 @@ import App from "./App";
 import GameEngine from "../core/game/GameEngine";
 import userEvent from "@testing-library/user-event";
 import Character from "../core/character/Character";
+import WorldMap from "../core/map/WorldMap";
+import Compass from "../core/orientation/Compass";
 
 describe("Acceptance test", () => {
     it("should update the character state when command buttons are clicked ", () => {
-        const gameEngine = new GameEngine(undefined, undefined);
+        const gameEngine = new GameEngine(new WorldMap(), new Compass());
         const character = new Character("id-1", gameEngine);
         gameEngine.addCharacter(character);
 
