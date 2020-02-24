@@ -10,10 +10,21 @@ export type CharacterInfo = {
 };
 
 export default class GameEngine {
+    // index this with a map<id, ..> if performance issue because of '.find()'
     private readonly characters: CharacterInfo[] = [];
 
     moveCharacter(id: string) {
-        throw new Error();
+        const characterInfo = this.getCharacterInfo(id);
+        characterInfo.state = characterInfo.state.move();
+    }
+
+    private getCharacterInfo(id: string) {
+        const characterInfo = this.characters
+            .find(character => character.character.id === id);
+        if(characterInfo) {
+            return characterInfo;
+        }
+        throw new Error(`unknown character with id [${id}]`);
     }
 
     left(id: string) {
