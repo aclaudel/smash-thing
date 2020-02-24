@@ -9,20 +9,26 @@ import Compass from "../core/orientation/Compass";
 describe("Acceptance test", () => {
     it("should update the character state when command buttons are clicked ", () => {
         const gameEngine = new GameEngine(new WorldMap(), new Compass());
-        gameEngine.registerCharacter("id-1");
+        const id1 = "id-1";
+        const id2 = "id-2";
+
+        gameEngine.registerCharacter(id1);
+        gameEngine.registerCharacter(id2);
 
         const app = render(<App gameEngine={gameEngine}/>);
 
-        const moveButton = app.getByTestId("move-button");
-        const leftButton = app.getByTestId("left-button");
-        const rightButton = app.getByTestId("right-button");
+        const leftButtonCharacter1 = app.getByTestId("left-button-" + id1);
+        const moveButtonCharacter1 = app.getByTestId("move-button-" + id1);
+        const rightButtonCharacter2 = app.getByTestId("right-button"  + id2);
 
-        userEvent.click(moveButton);
-        userEvent.click(rightButton);
-        userEvent.click(rightButton);
-        userEvent.click(leftButton);
+        userEvent.click(moveButtonCharacter1);
+        userEvent.click(leftButtonCharacter1);
+        userEvent.click(rightButtonCharacter2);
 
-        const characterInfo = app.getByTestId("character-info-id-1");
-        expect(characterInfo).toHaveTextContent("id-1: EAST - 0 1");
+        const characterInfo1 = app.getByTestId("character-info-" + id1);
+        expect(characterInfo1).toHaveTextContent(id1+ ": WEST - 0 1");
+
+        const characterInfo2 = app.getByTestId("character-info-" + id1);
+        expect(characterInfo2).toHaveTextContent(id1+ ": EAST - 0 0");
     });
 });
