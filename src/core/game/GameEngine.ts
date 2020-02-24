@@ -11,9 +11,11 @@ export type CharacterInfo = {
 
 export default class GameEngine {
     private readonly worldMap?: WorldMap;
+    private readonly compass?: Compass;
 
-    constructor(worldMap?: WorldMap) {
+    constructor(worldMap?: WorldMap, compass?: Compass) {
         this.worldMap = worldMap;
+        this.compass = compass;
     }
 
     // index this with a map<id, ..> if performance issue because of '.find()'
@@ -43,7 +45,12 @@ export default class GameEngine {
 
     left(id: string) {
         const characterInfo = this.getCharacterInfo(id);
-        characterInfo.state = characterInfo.state.left();
+        if(!this.compass) {
+            characterInfo.state = characterInfo.state.left();
+        } else {
+            const nextOrientation = this.compass.left(characterInfo.state.orientation);
+            characterInfo.state = characterInfo.state.facedTo(nextOrientation);
+        }
     }
 
     right(id: string) {

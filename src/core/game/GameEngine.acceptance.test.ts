@@ -2,7 +2,7 @@ import GameEngine from "./GameEngine";
 import Character from "../character/Character";
 
 describe("Game engine", () => {
-    const engine = new GameEngine();
+    const engine = new GameEngine(undefined, undefined);
 
     it("should register and update the character state", () => {
         const id = "id-1";

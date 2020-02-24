@@ -24,7 +24,7 @@ export default class CharacterState {
         return CharacterState.with(position, this.orientation, this.compass, this.worldMap);
     }
 
-    private facedTo(orientation: Orientation): CharacterState {
+    facedTo(orientation: Orientation): CharacterState {
         return CharacterState.with(this.position, orientation, this.compass, this.worldMap);
     }
 

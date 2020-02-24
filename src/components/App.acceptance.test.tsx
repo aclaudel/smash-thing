@@ -7,7 +7,7 @@ import Character from "../core/character/Character";
 
 describe("Acceptance test", () => {
     it("should update the character state when command buttons are clicked ", () => {
-        const gameEngine = new GameEngine();
+        const gameEngine = new GameEngine(undefined, undefined);
         const character = new Character("id-1", gameEngine);
         gameEngine.addCharacter(character);
 

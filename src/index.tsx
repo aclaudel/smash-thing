@@ -5,7 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import GameEngine from "./core/game/GameEngine";
 import Character from "./core/character/Character";
 
-const gameEngine = new GameEngine();
+const gameEngine = new GameEngine(undefined, undefined);
 const defaultCharacter = new Character("id-1", gameEngine);
 gameEngine.addCharacter(defaultCharacter);
 ReactDOM.render(<App

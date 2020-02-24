@@ -3,19 +3,22 @@ import Character from "../character/Character";
 import WorldMap from "../map/WorldMap";
 import {anyOfClass, instance, mock, when} from "ts-mockito";
 import Position from "../map/Position";
+import Compass from "../orientation/Compass";
 
 const DEFAULT_ORIENTATION = "NORTH";
 const DUMMY_POSITION = Position.of(1, 1);
+const DUMMY_ORIENTATION = "EAST";
 const DEFAULT_POSISTION_X = 0;
 const DEFAULT_POSISTION_Y = 0;
 
 describe("Game engine", () => {
     const worldMapMock = mock<WorldMap>();
+    const compassMock = mock<Compass>();
     let character: Character;
     let gameEngine: GameEngine;
 
     beforeEach(() => {
-        gameEngine = new GameEngine(instance(worldMapMock));
+        gameEngine = new GameEngine(instance(worldMapMock), instance(compassMock));
         character = new Character("id-1", gameEngine);
     });
 
@@ -46,10 +49,13 @@ describe("Game engine", () => {
         });
 
         it("should turn left and update its state", () => {
+            when(compassMock.left(DEFAULT_ORIENTATION))
+                .thenReturn(DUMMY_ORIENTATION);
+
             character.left();
 
             const characterInfo = gameEngine.getCharacters()[0];
-            expect(characterInfo.state.orientation).toBe("WEST");
+            expect(characterInfo.state.orientation).toBe(DUMMY_ORIENTATION);
         });
 
         it("should turn right and update its state", () => {
