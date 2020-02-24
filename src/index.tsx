@@ -7,7 +7,12 @@ import WorldMap from "./core/map/WorldMap";
 import Compass from "./core/orientation/Compass";
 
 const gameEngine = new GameEngine(new WorldMap(), new Compass());
-gameEngine.registerCharacter("id-1");
+
+gameEngine.registerCharacter("Arnaud");
+gameEngine.registerCharacter("Jose");
+gameEngine.registerCharacter("Ed");
+gameEngine.registerCharacter("The other");
+
 ReactDOM.render(<App
         gameEngine={gameEngine} />,
     document.getElementById('root'));
