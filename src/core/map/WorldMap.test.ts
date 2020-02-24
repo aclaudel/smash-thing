@@ -20,21 +20,21 @@ describe("WorldMap", () => {
         expect(actualNextPosition).toBe(nextPosition);
     }
 
-    it("should move up when facing WEST", () => {
+    it("should move left when facing WEST", () => {
         when(positionMock.transX(-1))
             .thenReturn(nextPosition);
 
         moveAndExpectPositionToBeUpdated("WEST");
     });
 
-    it("should move up when facing EAST", () => {
+    it("should move right when facing EAST", () => {
         when(positionMock.transX(1))
             .thenReturn(nextPosition);
 
         moveAndExpectPositionToBeUpdated("EAST");
     });
 
-    it("should move up when facing SOUTH", () => {
+    it("should move down when facing SOUTH", () => {
         when(positionMock.transY(-1))
             .thenReturn(nextPosition);
 
