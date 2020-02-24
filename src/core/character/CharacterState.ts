@@ -6,26 +6,25 @@ import WorldMap from "../map/WorldMap";
 export default class CharacterState {
     readonly position: Position;
     readonly orientation: Orientation;
-    private readonly compass: Compass;
-    private readonly worldMap: WorldMap;
 
-    private constructor(position: Position, orientation: Orientation, compass: Compass, worldMap: WorldMap) {
+    private constructor(position: Position, orientation: Orientation) {
         this.position = position;
         this.orientation = orientation;
-        this.compass = compass;
-        this.worldMap = worldMap;
     }
 
     static with(position: Position, orientation: Orientation, compass: Compass, worldMap: WorldMap) {
-        return new CharacterState(position, orientation, compass, worldMap);
+        return new CharacterState(position, orientation);
+    }
+
+    static init(position: Position, orientation: Orientation) {
+        return new CharacterState(position, orientation);
     }
 
     at(position: Position): CharacterState {
-        return CharacterState.with(position, this.orientation, this.compass, this.worldMap);
+        return CharacterState.init(position, this.orientation);
     }
 
     facedTo(orientation: Orientation): CharacterState {
-        return CharacterState.with(this.position, orientation, this.compass, this.worldMap);
+        return CharacterState.init(this.position, orientation);
     }
-
 }
