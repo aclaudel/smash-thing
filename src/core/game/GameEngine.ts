@@ -28,11 +28,13 @@ export default class GameEngine {
     }
 
     left(id: string) {
-        throw new Error();
+        const characterInfo = this.getCharacterInfo(id);
+        characterInfo.state = characterInfo.state.left();
     }
 
     right(id: string) {
-        throw new Error();
+        const characterInfo = this.getCharacterInfo(id);
+        characterInfo.state = characterInfo.state.right();
     }
 
     addCharacter(character: Character) {

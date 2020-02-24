@@ -21,11 +21,30 @@ describe("Game engine", () => {
         expect(characterInfo.state.position.y).toBe(0);
     });
 
-    it("should move a registered character", () => {
-        gameEngine.addCharacter(character);
-        character.move();
+    describe("with a registered character", () => {
+        beforeEach(() => {
+            gameEngine.addCharacter(character);
+        });
 
-        const characterInfo = gameEngine.getCharacters()[0];
-        expect(characterInfo.state.position.y).toBe(1);
+        it("should move and update its state", () => {
+            character.move();
+
+            const characterInfo = gameEngine.getCharacters()[0];
+            expect(characterInfo.state.position.y).toBe(1);
+        });
+
+        it("should turn left and update its state", () => {
+            character.left();
+
+            const characterInfo = gameEngine.getCharacters()[0];
+            expect(characterInfo.state.orientation).toBe("WEST");
+        });
+
+        it("should turn left and update its state", () => {
+            character.left();
+
+            const characterInfo = gameEngine.getCharacters()[0];
+            expect(characterInfo.state.orientation).toBe("EAST");
+        });
     });
 });
