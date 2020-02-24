@@ -21,29 +21,29 @@ export default class App extends React.Component<AppProps, AppState> {
             characters: props.gameEngine.getCharacters()
         }
     }
-    move() {
-        this.props.gameEngine.moveCharacter("id-1");
+    move(id: string) {
+        this.props.gameEngine.moveCharacter(id);
         const nextCharacters = this.props.gameEngine.getCharacters();
         this.setState({characters: nextCharacters});
     }
 
-    left() {
-        this.props.gameEngine.left("id-1");
+    left(id: string) {
+        this.props.gameEngine.left(id);
         const nextCharacters = this.props.gameEngine.getCharacters();
         this.setState({characters: nextCharacters});
     }
 
-    right() {
-        this.props.gameEngine.right("id-1");
+    right(id: string) {
+        this.props.gameEngine.right(id);
         const nextCharacters = this.props.gameEngine.getCharacters();
         this.setState({characters: nextCharacters});
     }
 
     render() {
         const listeners: Listeners = {
-            left: this.left,
-            move: this.move,
-            right: this.right
+            left: () => this.left("id-1"),
+            move: () => this.move("id-1"),
+            right: () => this.right("id-1")
         };
 
         return (
