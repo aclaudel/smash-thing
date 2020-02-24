@@ -52,7 +52,7 @@ describe("Game engine", () => {
             when(compassMock.left(DEFAULT_ORIENTATION))
                 .thenReturn(DUMMY_ORIENTATION);
 
-            character.left();
+            gameEngine.left(character.id);
 
             const characterInfo = gameEngine.getCharacters()[0];
             expect(characterInfo.state.orientation).toBe(DUMMY_ORIENTATION);
@@ -62,7 +62,7 @@ describe("Game engine", () => {
             when(compassMock.right(DEFAULT_ORIENTATION))
                 .thenReturn(DUMMY_ORIENTATION);
 
-            character.right();
+            gameEngine.right(character.id);
 
             const characterInfo = gameEngine.getCharacters()[0];
             expect(characterInfo.state.orientation).toBe(DUMMY_ORIENTATION);
@@ -81,7 +81,7 @@ describe("Game engine", () => {
             gameEngine.addCharacter(character1);
             gameEngine.addCharacter(character2);
 
-            character1.right();
+            gameEngine.right(character1.id);
 
             const characters = gameEngine.getCharacters();
             const character1Info = characters.find(c => c.character.id === "id-1");
