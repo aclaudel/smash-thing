@@ -28,15 +28,4 @@ export default class CharacterState {
         return CharacterState.with(this.position, orientation, this.compass, this.worldMap);
     }
 
-    move(): CharacterState {
-        return this.at(this.worldMap.move(this.position, this.orientation));
-    }
-
-    left(): CharacterState {
-        return this.facedTo(this.compass.left(this.orientation));
-    }
-
-    right(): CharacterState {
-        return this.facedTo(this.compass.right(this.orientation));
-    }
 }
