@@ -15,7 +15,7 @@ describe("Game engine", () => {
         engine.left(id);
 
         const currentCharacter = engine.getCharacters()
-            .find(c => c.character.id === id);
+            .find(c => c.id === id);
 
         expect(currentCharacter).not.toBeFalsy();
         expect(currentCharacter?.state.position.y).toBe(1);

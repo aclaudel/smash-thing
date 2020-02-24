@@ -1,11 +1,10 @@
-import Character from "../character/Character";
 import CharacterState from "../character/CharacterState";
 import Position from "../map/Position";
 import WorldMap from "../map/WorldMap";
 import Compass from "../orientation/Compass";
 
 export type CharacterInfo = {
-    character: Character,
+    id: string,
     state: CharacterState
 };
 
@@ -32,7 +31,7 @@ export default class GameEngine {
 
     private getCharacterInfo(id: string) {
         const characterInfo = this.characters
-            .find(character => character.character.id === id);
+            .find(character => character.id === id);
         if(characterInfo) {
             return characterInfo;
         }
@@ -53,15 +52,7 @@ export default class GameEngine {
 
     registerCharacter(id: string) {
         let characterInfo = {
-            character: new Character(id),
-            state: GameEngine.newDefaultState()
-        };
-        this.characters.push(characterInfo);
-    }
-
-    addCharacter(character: Character) {
-        let characterInfo = {
-            character: character,
+            id: id,
             state: GameEngine.newDefaultState()
         };
         this.characters.push(characterInfo);

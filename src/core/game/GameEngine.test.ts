@@ -26,7 +26,7 @@ describe("Game engine", () => {
 
             expect(gameEngine.getCharacters()).toHaveLength(1);
             const characterInfo = gameEngine.getCharacters()[0];
-            expect(characterInfo.character.id).toBe(id);
+            expect(characterInfo.id).toBe(id);
             expect(characterInfo.state.orientation).toBe(DEFAULT_ORIENTATION);
             expect(characterInfo.state.position.x).toBe(DEFAULT_POSISTION_X);
             expect(characterInfo.state.position.y).toBe(DEFAULT_POSISTION_Y);
@@ -84,8 +84,8 @@ describe("Game engine", () => {
             gameEngine.right(id1);
 
             const characters = gameEngine.getCharacters();
-            const character1Info = characters.find(c => c.character.id === id1);
-            const character2Info = characters.find(c => c.character.id === id2);
+            const character1Info = characters.find(c => c.id === id1);
+            const character2Info = characters.find(c => c.id === id2);
 
             expect(character1Info?.state.orientation).toBe(DUMMY_ORIENTATION);
             expect(character2Info?.state.orientation).toBe(DEFAULT_ORIENTATION);
