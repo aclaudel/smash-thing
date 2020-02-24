@@ -15,6 +15,7 @@ export default class GameEngine {
 
     // index this with a map<id, ..> if performance issue because of '.find()'
     private readonly characters: CharacterInfo[] = [];
+    private readonly charactersMap: Map<string, Character> = new Map();
 
     moveCharacter(id: string) {
         const characterInfo = this.getCharacterInfo(id);
@@ -23,6 +24,10 @@ export default class GameEngine {
             characterInfo.orientation
         );
         characterInfo.position = nextPosition;
+        this.charactersMap.set(id, Character.init(
+            characterInfo.id,
+            nextPosition,
+            characterInfo.orientation));
     }
 
     private getCharacterInfo(id: string) {
@@ -38,12 +43,20 @@ export default class GameEngine {
         const characterInfo = this.getCharacterInfo(id);
         const nextOrientation = this.compass.left(characterInfo.orientation);
         characterInfo.orientation = nextOrientation;
+        this.charactersMap.set(id, Character.init(
+            characterInfo.id,
+            characterInfo.position,
+            nextOrientation));
     }
 
     right(id: string) {
         const characterInfo = this.getCharacterInfo(id);
         const nextOrientation = this.compass.right(characterInfo.orientation);
         characterInfo.orientation = nextOrientation;
+        this.charactersMap.set(id, Character.init(
+            characterInfo.id,
+            characterInfo.position,
+            nextOrientation));
     }
 
     registerCharacter(id: string) {
@@ -52,6 +65,7 @@ export default class GameEngine {
             ...character
         };
         this.characters.push(characterInfo);
+        this.charactersMap.set(character.id, character);
     }
 
     private static defaultCharacterState(id: string): Character {
@@ -59,6 +73,6 @@ export default class GameEngine {
     }
 
     getCharacters(): CharacterInfo[] {
-        return this.characters.slice();
+        return Array.from(this.charactersMap.values());
     }
 }
