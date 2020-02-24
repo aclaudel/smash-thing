@@ -1,5 +1,4 @@
 import GameEngine from "./GameEngine";
-import Character from "../character/Character";
 import Compass from "../orientation/Compass";
 import WorldMap from "../map/WorldMap";
 
@@ -9,7 +8,7 @@ describe("Game engine", () => {
     it("should register and update the character state", () => {
         const id = "id-1";
 
-        engine.addCharacter(new Character(id));
+        engine.registerCharacter(id);
         engine.moveCharacter(id);
         engine.right(id);
         engine.right(id);

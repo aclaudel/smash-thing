@@ -3,13 +3,11 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import GameEngine from "./core/game/GameEngine";
-import Character from "./core/character/Character";
 import WorldMap from "./core/map/WorldMap";
 import Compass from "./core/orientation/Compass";
 
 const gameEngine = new GameEngine(new WorldMap(), new Compass());
-const defaultCharacter = new Character("id-1");
-gameEngine.addCharacter(defaultCharacter);
+gameEngine.registerCharacter("id-1");
 ReactDOM.render(<App
         gameEngine={gameEngine} />,
     document.getElementById('root'));

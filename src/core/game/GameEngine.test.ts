@@ -1,5 +1,4 @@
 import GameEngine from "./GameEngine";
-import Character from "../character/Character";
 import WorldMap from "../map/WorldMap";
 import {anyOfClass, instance, mock, when} from "ts-mockito";
 import Position from "../map/Position";
@@ -14,21 +13,20 @@ const DEFAULT_POSISTION_Y = 0;
 describe("Game engine", () => {
     const worldMapMock = mock<WorldMap>();
     const compassMock = mock<Compass>();
-    let character: Character;
+    const id = "id";
     let gameEngine: GameEngine;
 
     beforeEach(() => {
         gameEngine = new GameEngine(instance(worldMapMock), instance(compassMock));
-        character = new Character("id-1");
     });
 
     describe("with an unregistered character", () => {
         it("should register the character with a default state", () => {
-            gameEngine.addCharacter(character);
+            gameEngine.registerCharacter(id);
 
             expect(gameEngine.getCharacters()).toHaveLength(1);
             const characterInfo = gameEngine.getCharacters()[0];
-            expect(characterInfo.character).toBe(character);
+            expect(characterInfo.character.id).toBe(id);
             expect(characterInfo.state.orientation).toBe(DEFAULT_ORIENTATION);
             expect(characterInfo.state.position.x).toBe(DEFAULT_POSISTION_X);
             expect(characterInfo.state.position.y).toBe(DEFAULT_POSISTION_Y);
@@ -37,14 +35,14 @@ describe("Game engine", () => {
 
     describe("with a registered character", () => {
         beforeEach(() => {
-            gameEngine.addCharacter(character);
+            gameEngine.registerCharacter(id);
         });
 
         it("should move and update its state", () => {
             when(worldMapMock.move(anyOfClass(Position), DEFAULT_ORIENTATION))
                 .thenReturn(DUMMY_POSITION);
 
-            gameEngine.moveCharacter(character.id);
+            gameEngine.moveCharacter(id);
 
             const characterInfo = gameEngine.getCharacters()[0];
             expect(characterInfo.state.position).toBe(DUMMY_POSITION);
@@ -54,7 +52,7 @@ describe("Game engine", () => {
             when(compassMock.left(DEFAULT_ORIENTATION))
                 .thenReturn(DUMMY_ORIENTATION);
 
-            gameEngine.left(character.id);
+            gameEngine.left(id);
 
             const characterInfo = gameEngine.getCharacters()[0];
             expect(characterInfo.state.orientation).toBe(DUMMY_ORIENTATION);
@@ -64,7 +62,7 @@ describe("Game engine", () => {
             when(compassMock.right(DEFAULT_ORIENTATION))
                 .thenReturn(DUMMY_ORIENTATION);
 
-            gameEngine.right(character.id);
+            gameEngine.right(id);
 
             const characterInfo = gameEngine.getCharacters()[0];
             expect(characterInfo.state.orientation).toBe(DUMMY_ORIENTATION);
@@ -77,17 +75,17 @@ describe("Game engine", () => {
                 .thenReturn(DUMMY_ORIENTATION);
 
 
-            const character1 = new Character("id-1");
-            const character2 = new Character("id-2");
+            const id1 = "id-1";
+            const id2 = "id-2";
 
-            gameEngine.addCharacter(character1);
-            gameEngine.addCharacter(character2);
+            gameEngine.registerCharacter(id1);
+            gameEngine.registerCharacter(id2);
 
-            gameEngine.right(character1.id);
+            gameEngine.right(id1);
 
             const characters = gameEngine.getCharacters();
-            const character1Info = characters.find(c => c.character.id === "id-1");
-            const character2Info = characters.find(c => c.character.id === "id-2");
+            const character1Info = characters.find(c => c.character.id === id1);
+            const character2Info = characters.find(c => c.character.id === id2);
 
             expect(character1Info?.state.orientation).toBe(DUMMY_ORIENTATION);
             expect(character2Info?.state.orientation).toBe(DEFAULT_ORIENTATION);

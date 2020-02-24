@@ -51,6 +51,14 @@ export default class GameEngine {
         characterInfo.state = characterInfo.state.facedTo(nextOrientation);
     }
 
+    registerCharacter(id: string) {
+        let characterInfo = {
+            character: new Character(id),
+            state: GameEngine.newDefaultState()
+        };
+        this.characters.push(characterInfo);
+    }
+
     addCharacter(character: Character) {
         let characterInfo = {
             character: character,
