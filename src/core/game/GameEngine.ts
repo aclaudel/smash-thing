@@ -53,13 +53,13 @@ export default class GameEngine {
     registerCharacter(id: string) {
         let characterInfo = {
             id: id,
-            state: GameEngine.newDefaultState()
+            state: GameEngine.newDefaultState(id)
         };
         this.characters.push(characterInfo);
     }
 
-    private static newDefaultState(): CharacterState {
-        return CharacterState.init(Position.of(0,0), "NORTH");
+    private static newDefaultState(id: string): CharacterState {
+        return CharacterState.init(id, Position.of(0,0), "NORTH");
     }
 
     getCharacters(): CharacterInfo[] {
