@@ -6,6 +6,8 @@ import CharacterState from "./core/character/CharacterState";
 import Position from "./core/map/Position";
 import Compass from "./core/orientation/Compass";
 import WorldMap from "./core/map/WorldMap";
+import GameEngine from "./core/game/GameEngine";
+import Character from "./core/character/Character";
 
 const initCharacterState = CharacterState.with(
     Position.of(0, 0),
@@ -14,7 +16,13 @@ const initCharacterState = CharacterState.with(
     new WorldMap()
 );
 
-ReactDOM.render(<App characterState={initCharacterState} />, document.getElementById('root'));
+const gameEngine = new GameEngine();
+gameEngine.addCharacter(new Character("id-1", gameEngine));
+
+ReactDOM.render(<App
+        gameEngine={gameEngine}
+        characterState={initCharacterState} />,
+    document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
