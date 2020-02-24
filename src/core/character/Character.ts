@@ -1,7 +1,7 @@
 import {Orientation} from "../orientation/Orientation";
 import Position from "../map/Position";
 
-export default class CharacterState {
+export default class Character {
     readonly id: string;
     readonly position: Position;
     readonly orientation: Orientation;
@@ -13,14 +13,14 @@ export default class CharacterState {
     }
 
     static init(id: string, position: Position, orientation: Orientation) {
-        return new CharacterState(id, position, orientation);
+        return new Character(id, position, orientation);
     }
 
-    at(position: Position): CharacterState {
-        return CharacterState.init(this.id, position, this.orientation);
+    at(position: Position): Character {
+        return Character.init(this.id, position, this.orientation);
     }
 
-    facedTo(orientation: Orientation): CharacterState {
-        return CharacterState.init(this.id, this.position, orientation);
+    facedTo(orientation: Orientation): Character {
+        return Character.init(this.id, this.position, orientation);
     }
 }

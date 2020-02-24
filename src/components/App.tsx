@@ -1,7 +1,8 @@
 import React from "react";
 import GameView from "./game/GameView";
 import {Listeners} from "./game/Commands";
-import GameEngine, {CharacterInfo} from "../core/game/GameEngine";
+import GameEngine from "../core/game/GameEngine";
+import {CharacterInfo} from "../core/character/CharacterInfo";
 
 type AppProps = {
     gameEngine: GameEngine

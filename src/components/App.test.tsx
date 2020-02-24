@@ -3,7 +3,8 @@ import {shallow} from "enzyme";
 import App from "./App";
 import {instance, mock, resetCalls, verify, when} from "ts-mockito";
 import GameView from "./game/GameView";
-import GameEngine, {CharacterInfo} from "../core/game/GameEngine";
+import GameEngine from "../core/game/GameEngine";
+import {CharacterInfo} from "../core/character/CharacterInfo";
 
 describe("App", () => {
     const gameEngineMock = mock<GameEngine>();

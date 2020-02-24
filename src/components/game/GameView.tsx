@@ -1,6 +1,6 @@
 import React from "react";
 import Commands, {Listeners} from "./Commands";
-import {CharacterInfo} from "../../core/game/GameEngine";
+import {CharacterInfo} from "../../core/character/CharacterInfo";
 
 export default function GameView(props: {
     characters: CharacterInfo[],

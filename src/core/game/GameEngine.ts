@@ -1,14 +1,8 @@
-import CharacterState from "../character/CharacterState";
+import Character from "../character/Character";
 import Position from "../map/Position";
 import WorldMap from "../map/WorldMap";
 import Compass from "../orientation/Compass";
-import {Orientation} from "../orientation/Orientation";
-
-export type CharacterInfo = {
-    id: string,
-    orientation: Orientation,
-    position: Position
-};
+import {CharacterInfo} from "../character/CharacterInfo";
 
 export default class GameEngine {
     private readonly worldMap: WorldMap;
@@ -53,17 +47,15 @@ export default class GameEngine {
     }
 
     registerCharacter(id: string) {
-        const state = GameEngine.newDefaultState(id);
+        const character = GameEngine.defaultCharacterState(id);
         let characterInfo: CharacterInfo = {
-            id: id,
-            orientation: state.orientation,
-            position: state.position
+            ...character
         };
         this.characters.push(characterInfo);
     }
 
-    private static newDefaultState(id: string): CharacterState {
-        return CharacterState.init(id, Position.of(0,0), "NORTH");
+    private static defaultCharacterState(id: string): Character {
+        return Character.init(id, Position.of(0,0), "NORTH");
     }
 
     getCharacters(): CharacterInfo[] {
