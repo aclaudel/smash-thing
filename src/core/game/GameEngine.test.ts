@@ -7,7 +7,7 @@ import Compass from "../orientation/Compass";
 
 const DEFAULT_ORIENTATION = "NORTH";
 const DUMMY_POSITION = Position.of(1, 1);
-const DUMMY_ORIENTATION = "EAST";
+const DUMMY_ORIENTATION = "SOUTH"; // be careful with false-positive as it will compare value and not reference
 const DEFAULT_POSISTION_X = 0;
 const DEFAULT_POSISTION_Y = 0;
 
@@ -59,15 +59,22 @@ describe("Game engine", () => {
         });
 
         it("should turn right and update its state", () => {
+            when(compassMock.right(DEFAULT_ORIENTATION))
+                .thenReturn(DUMMY_ORIENTATION);
+
             character.right();
 
             const characterInfo = gameEngine.getCharacters()[0];
-            expect(characterInfo.state.orientation).toBe("EAST");
+            expect(characterInfo.state.orientation).toBe(DUMMY_ORIENTATION);
         });
     });
 
     describe("with two characters", () => {
         it("should update only the character with the given id", () => {
+            when(compassMock.right(DEFAULT_ORIENTATION))
+                .thenReturn(DUMMY_ORIENTATION);
+
+
             const character1 = new Character("id-1", gameEngine);
             const character2 = new Character("id-2", gameEngine);
 
@@ -80,7 +87,7 @@ describe("Game engine", () => {
             const character1Info = characters.find(c => c.character.id === "id-1");
             const character2Info = characters.find(c => c.character.id === "id-2");
 
-            expect(character1Info?.state.orientation).toBe("EAST");
+            expect(character1Info?.state.orientation).toBe(DUMMY_ORIENTATION);
             expect(character2Info?.state.orientation).toBe(DEFAULT_ORIENTATION);
         });
     });

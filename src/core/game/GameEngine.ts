@@ -55,7 +55,14 @@ export default class GameEngine {
 
     right(id: string) {
         const characterInfo = this.getCharacterInfo(id);
-        characterInfo.state = characterInfo.state.right();
+
+        if(!this.compass) {
+            characterInfo.state = characterInfo.state.right();
+        } else {
+            const nextOrientation = this.compass.right(characterInfo.state.orientation);
+            characterInfo.state = characterInfo.state.facedTo(nextOrientation);
+        }
+
     }
 
     addCharacter(character: Character) {
