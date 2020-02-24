@@ -20,7 +20,7 @@ export default class CharacterState {
         return new CharacterState(position, orientation, compass, worldMap);
     }
 
-    private at(position: Position): CharacterState {
+    at(position: Position): CharacterState {
         return CharacterState.with(position, this.orientation, this.compass, this.worldMap);
     }
 

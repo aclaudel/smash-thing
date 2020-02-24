@@ -1,16 +1,21 @@
 import GameEngine from "./GameEngine";
 import Character from "../character/Character";
+import WorldMap from "../map/WorldMap";
+import {anyOfClass, instance, mock, when} from "ts-mockito";
+import Position from "../map/Position";
 
 const DEFAULT_ORIENTATION = "NORTH";
+const DUMMY_POSITION = Position.of(1, 1);
 const DEFAULT_POSISTION_X = 0;
 const DEFAULT_POSISTION_Y = 0;
 
 describe("Game engine", () => {
+    const worldMapMock = mock<WorldMap>();
     let character: Character;
     let gameEngine: GameEngine;
 
     beforeEach(() => {
-        gameEngine = new GameEngine();
+        gameEngine = new GameEngine(instance(worldMapMock));
         character = new Character("id-1", gameEngine);
     });
 
@@ -31,10 +36,13 @@ describe("Game engine", () => {
         });
 
         it("should move and update its state", () => {
-            character.move();
+            when(worldMapMock.move(anyOfClass(Position), DEFAULT_ORIENTATION))
+                .thenReturn(DUMMY_POSITION);
+
+            gameEngine.moveCharacter(character.id);
 
             const characterInfo = gameEngine.getCharacters()[0];
-            expect(characterInfo.state.position.y).toBe(DEFAULT_POSISTION_Y +1);
+            expect(characterInfo.state.position).toBe(DUMMY_POSITION);
         });
 
         it("should turn left and update its state", () => {

@@ -10,12 +10,26 @@ export type CharacterInfo = {
 };
 
 export default class GameEngine {
+    private readonly worldMap?: WorldMap;
+
+    constructor(worldMap?: WorldMap) {
+        this.worldMap = worldMap;
+    }
+
     // index this with a map<id, ..> if performance issue because of '.find()'
     private readonly characters: CharacterInfo[] = [];
 
     moveCharacter(id: string) {
         const characterInfo = this.getCharacterInfo(id);
-        characterInfo.state = characterInfo.state.move();
+        if(!this.worldMap) {
+            characterInfo.state = characterInfo.state.move();
+        } else {
+            const nextPosition = this.worldMap.move(
+                characterInfo.state.position,
+                characterInfo.state.orientation
+            );
+            characterInfo.state = characterInfo.state.at(nextPosition);
+        }
     }
 
     private getCharacterInfo(id: string) {
