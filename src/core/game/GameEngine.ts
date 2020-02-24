@@ -15,19 +15,26 @@ export default class GameEngine {
         this.charactersMap = new Map();
     }
 
-    moveCharacter(id: string) {
-        const characterInfo = this.getCharacterInfo(id);
-        const nextPosition = this.worldMap.move(
-            characterInfo.position,
-            characterInfo.orientation
-        );
-        this.charactersMap.set(id, Character.init(
-            characterInfo.id,
-            nextPosition,
-            characterInfo.orientation));
+    registerCharacter(id: string) {
+        const character = GameEngine.characterWithDefaultState(id);
+        this.charactersMap.set(character.id, character);
     }
 
-    private getCharacterInfo(id: string) {
+    private static characterWithDefaultState(id: string): Character {
+        return Character.init(id, Position.of(0,0), "NORTH");
+    }
+
+    getCharacters(): CharacterInfo[] {
+        return Array.from(this.charactersMap.values());
+    }
+
+    moveCharacter(id: string) {
+        const character = this.getCharacter(id);
+        const nextPosition = this.worldMap.move(character.position, character.orientation);
+        this.charactersMap.set(id, character.at(nextPosition));
+    }
+
+    private getCharacter(id: string) {
         const characterInfo = this.charactersMap.get(id);
         if(characterInfo) {
             return characterInfo;
@@ -36,33 +43,14 @@ export default class GameEngine {
     }
 
     left(id: string) {
-        const characterInfo = this.getCharacterInfo(id);
-        const nextOrientation = this.compass.left(characterInfo.orientation);
-        this.charactersMap.set(id, Character.init(
-            characterInfo.id,
-            characterInfo.position,
-            nextOrientation));
+        const character = this.getCharacter(id);
+        const nextOrientation = this.compass.left(character.orientation);
+        this.charactersMap.set(id, character.facedTo(nextOrientation));
     }
 
     right(id: string) {
-        const characterInfo = this.getCharacterInfo(id);
-        const nextOrientation = this.compass.right(characterInfo.orientation);
-        this.charactersMap.set(id, Character.init(
-            characterInfo.id,
-            characterInfo.position,
-            nextOrientation));
-    }
-
-    registerCharacter(id: string) {
-        const character = GameEngine.defaultCharacterState(id);
-        this.charactersMap.set(character.id, character);
-    }
-
-    private static defaultCharacterState(id: string): Character {
-        return Character.init(id, Position.of(0,0), "NORTH");
-    }
-
-    getCharacters(): CharacterInfo[] {
-        return Array.from(this.charactersMap.values());
+        const character = this.getCharacter(id);
+        const nextOrientation = this.compass.right(character.orientation);
+        this.charactersMap.set(id, character.facedTo(nextOrientation));
     }
 }
