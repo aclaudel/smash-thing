@@ -60,10 +60,7 @@ export default class GameEngine {
     }
 
     private static newDefaultState(): CharacterState {
-        return CharacterState.with(
-            Position.of(0,0), "NORTH",
-            new Compass(), new WorldMap()
-        );
+        return CharacterState.init(Position.of(0,0), "NORTH");
     }
 
     getCharacters(): CharacterInfo[] {

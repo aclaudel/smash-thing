@@ -1,7 +1,5 @@
 import {Orientation} from "../orientation/Orientation";
 import Position from "../map/Position";
-import Compass from "../orientation/Compass";
-import WorldMap from "../map/WorldMap";
 
 export default class CharacterState {
     readonly position: Position;
@@ -10,10 +8,6 @@ export default class CharacterState {
     private constructor(position: Position, orientation: Orientation) {
         this.position = position;
         this.orientation = orientation;
-    }
-
-    static with(position: Position, orientation: Orientation, compass: Compass, worldMap: WorldMap) {
-        return new CharacterState(position, orientation);
     }
 
     static init(position: Position, orientation: Orientation) {
