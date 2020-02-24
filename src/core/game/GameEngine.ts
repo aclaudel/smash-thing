@@ -7,15 +7,13 @@ import {CharacterInfo} from "../character/CharacterInfo";
 export default class GameEngine {
     private readonly worldMap: WorldMap;
     private readonly compass: Compass;
+    private readonly charactersMap: Map<string, Character>;
 
     constructor(worldMap: WorldMap, compass: Compass) {
         this.worldMap = worldMap;
         this.compass = compass;
+        this.charactersMap = new Map();
     }
-
-    // index this with a map<id, ..> if performance issue because of '.find()'
-    private readonly characters: CharacterInfo[] = [];
-    private readonly charactersMap: Map<string, Character> = new Map();
 
     moveCharacter(id: string) {
         const characterInfo = this.getCharacterInfo(id);
@@ -23,7 +21,6 @@ export default class GameEngine {
             characterInfo.position,
             characterInfo.orientation
         );
-        characterInfo.position = nextPosition;
         this.charactersMap.set(id, Character.init(
             characterInfo.id,
             nextPosition,
@@ -31,8 +28,7 @@ export default class GameEngine {
     }
 
     private getCharacterInfo(id: string) {
-        const characterInfo = this.characters
-            .find(character => character.id === id);
+        const characterInfo = this.charactersMap.get(id);
         if(characterInfo) {
             return characterInfo;
         }
@@ -42,7 +38,6 @@ export default class GameEngine {
     left(id: string) {
         const characterInfo = this.getCharacterInfo(id);
         const nextOrientation = this.compass.left(characterInfo.orientation);
-        characterInfo.orientation = nextOrientation;
         this.charactersMap.set(id, Character.init(
             characterInfo.id,
             characterInfo.position,
@@ -52,7 +47,6 @@ export default class GameEngine {
     right(id: string) {
         const characterInfo = this.getCharacterInfo(id);
         const nextOrientation = this.compass.right(characterInfo.orientation);
-        characterInfo.orientation = nextOrientation;
         this.charactersMap.set(id, Character.init(
             characterInfo.id,
             characterInfo.position,
@@ -61,10 +55,6 @@ export default class GameEngine {
 
     registerCharacter(id: string) {
         const character = GameEngine.defaultCharacterState(id);
-        let characterInfo: CharacterInfo = {
-            ...character
-        };
-        this.characters.push(characterInfo);
         this.charactersMap.set(character.id, character);
     }
 
