@@ -19,7 +19,7 @@ describe("Acceptance test", () => {
 
         const leftButtonCharacter1 = app.getByTestId("left-button-" + id1);
         const moveButtonCharacter1 = app.getByTestId("move-button-" + id1);
-        const rightButtonCharacter2 = app.getByTestId("right-button"  + id2);
+        const rightButtonCharacter2 = app.getByTestId("right-button-"  + id2);
 
         userEvent.click(moveButtonCharacter1);
         userEvent.click(leftButtonCharacter1);
@@ -28,7 +28,7 @@ describe("Acceptance test", () => {
         const characterInfo1 = app.getByTestId("character-info-" + id1);
         expect(characterInfo1).toHaveTextContent(id1+ ": WEST - 0 1");
 
-        const characterInfo2 = app.getByTestId("character-info-" + id1);
-        expect(characterInfo2).toHaveTextContent(id1+ ": EAST - 0 0");
+        const characterInfo2 = app.getByTestId("character-info-" + id2);
+        expect(characterInfo2).toHaveTextContent(id2 + ": EAST - 0 0");
     });
 });

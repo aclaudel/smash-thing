@@ -42,9 +42,9 @@ export default class App extends React.Component<AppProps, AppState> {
 
     render() {
         const listeners: Listeners = {
-            left: () => this.left("id-1"),
-            move: () => this.move("id-1"),
-            right: () => this.right("id-1")
+            left: this.left,
+            move: this.move,
+            right: this.right
         };
 
         return (
