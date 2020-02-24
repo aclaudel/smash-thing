@@ -1,7 +1,7 @@
 import GameEngine from "../game/GameEngine";
 
 export default class Character {
-    private readonly id: string;
+    readonly id: string;
     private readonly gameEngine: GameEngine;
 
     constructor(id: string, gameEngine: GameEngine) {
