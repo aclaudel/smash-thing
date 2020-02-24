@@ -2,10 +2,12 @@ import CharacterState from "../character/CharacterState";
 import Position from "../map/Position";
 import WorldMap from "../map/WorldMap";
 import Compass from "../orientation/Compass";
+import {Orientation} from "../orientation/Orientation";
 
 export type CharacterInfo = {
     id: string,
-    state: CharacterState
+    orientation: Orientation,
+    position: Position
 };
 
 export default class GameEngine {
@@ -23,10 +25,10 @@ export default class GameEngine {
     moveCharacter(id: string) {
         const characterInfo = this.getCharacterInfo(id);
         const nextPosition = this.worldMap.move(
-            characterInfo.state.position,
-            characterInfo.state.orientation
+            characterInfo.position,
+            characterInfo.orientation
         );
-        characterInfo.state = characterInfo.state.at(nextPosition);
+        characterInfo.position = nextPosition;
     }
 
     private getCharacterInfo(id: string) {
@@ -40,20 +42,22 @@ export default class GameEngine {
 
     left(id: string) {
         const characterInfo = this.getCharacterInfo(id);
-        const nextOrientation = this.compass.left(characterInfo.state.orientation);
-        characterInfo.state = characterInfo.state.facedTo(nextOrientation);
+        const nextOrientation = this.compass.left(characterInfo.orientation);
+        characterInfo.orientation = nextOrientation;
     }
 
     right(id: string) {
         const characterInfo = this.getCharacterInfo(id);
-        const nextOrientation = this.compass.right(characterInfo.state.orientation);
-        characterInfo.state = characterInfo.state.facedTo(nextOrientation);
+        const nextOrientation = this.compass.right(characterInfo.orientation);
+        characterInfo.orientation = nextOrientation;
     }
 
     registerCharacter(id: string) {
-        let characterInfo = {
+        const state = GameEngine.newDefaultState(id);
+        let characterInfo: CharacterInfo = {
             id: id,
-            state: GameEngine.newDefaultState(id)
+            orientation: state.orientation,
+            position: state.position
         };
         this.characters.push(characterInfo);
     }

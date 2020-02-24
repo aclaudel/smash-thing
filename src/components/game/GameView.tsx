@@ -11,7 +11,7 @@ export default function GameView(props: {
             <Commands listeners={props.listeners}/>
             {props.characters.map(c =>
                 <h2 key={c.id} data-testid={"character-info-" + c.id}>
-                    {c.id}: {c.state.orientation} - {c.state.position.x} {c.state.position.y}
+                    {c.id}: {c.orientation} - {c.position.x} {c.position.y}
                 </h2>
             )}
         </div>

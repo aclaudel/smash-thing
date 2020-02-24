@@ -27,9 +27,9 @@ describe("Game engine", () => {
             expect(gameEngine.getCharacters()).toHaveLength(1);
             const characterInfo = gameEngine.getCharacters()[0];
             expect(characterInfo.id).toBe(id);
-            expect(characterInfo.state.orientation).toBe(DEFAULT_ORIENTATION);
-            expect(characterInfo.state.position.x).toBe(DEFAULT_POSISTION_X);
-            expect(characterInfo.state.position.y).toBe(DEFAULT_POSISTION_Y);
+            expect(characterInfo.orientation).toBe(DEFAULT_ORIENTATION);
+            expect(characterInfo.position.x).toBe(DEFAULT_POSISTION_X);
+            expect(characterInfo.position.y).toBe(DEFAULT_POSISTION_Y);
         });
     });
 
@@ -45,7 +45,7 @@ describe("Game engine", () => {
             gameEngine.moveCharacter(id);
 
             const characterInfo = gameEngine.getCharacters()[0];
-            expect(characterInfo.state.position).toBe(DUMMY_POSITION);
+            expect(characterInfo.position).toBe(DUMMY_POSITION);
         });
 
         it("should turn left and update its state", () => {
@@ -55,7 +55,7 @@ describe("Game engine", () => {
             gameEngine.left(id);
 
             const characterInfo = gameEngine.getCharacters()[0];
-            expect(characterInfo.state.orientation).toBe(DUMMY_ORIENTATION);
+            expect(characterInfo.orientation).toBe(DUMMY_ORIENTATION);
         });
 
         it("should turn right and update its state", () => {
@@ -65,7 +65,7 @@ describe("Game engine", () => {
             gameEngine.right(id);
 
             const characterInfo = gameEngine.getCharacters()[0];
-            expect(characterInfo.state.orientation).toBe(DUMMY_ORIENTATION);
+            expect(characterInfo.orientation).toBe(DUMMY_ORIENTATION);
         });
     });
 
@@ -87,8 +87,8 @@ describe("Game engine", () => {
             const character1Info = characters.find(c => c.id === id1);
             const character2Info = characters.find(c => c.id === id2);
 
-            expect(character1Info?.state.orientation).toBe(DUMMY_ORIENTATION);
-            expect(character2Info?.state.orientation).toBe(DEFAULT_ORIENTATION);
+            expect(character1Info?.orientation).toBe(DUMMY_ORIENTATION);
+            expect(character2Info?.orientation).toBe(DEFAULT_ORIENTATION);
         });
     });
 });

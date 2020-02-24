@@ -18,8 +18,8 @@ describe("Game engine", () => {
             .find(c => c.id === id);
 
         expect(currentCharacter).not.toBeFalsy();
-        expect(currentCharacter?.state.position.y).toBe(1);
-        expect(currentCharacter?.state.position.x).toBe(0);
-        expect(currentCharacter?.state.orientation).toBe("EAST");
+        expect(currentCharacter?.position.y).toBe(1);
+        expect(currentCharacter?.position.x).toBe(0);
+        expect(currentCharacter?.orientation).toBe("EAST");
     });
 });
