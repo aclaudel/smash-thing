@@ -26,7 +26,7 @@
     "react-compass": "^0.1.0",
     "react-d3-speedometer": "^0.9.0",
     "react-dom": "^16.12.0",
-    "react-scripts": "3.4.0",
+    "react-scripts": "5.0.1",
     "ts-mockito": "^2.5.0",
     "typescript": "~3.7.2"
   },
